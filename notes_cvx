@@ -1,0 +1,166 @@
+
+N = 5 # x xdot, theta, thetadot, a
+T = 50
+
+def a(t):
+	return t*N+4
+def a(t):
+	return t*N+4
+def a(t):
+	return t*N+4
+def a(t):
+	return t*N+4
+
+
+I = []
+J = []
+x = []
+
+
+X = 0
+XDOT = 1
+THETA = 2
+THETADOT = 3
+A = 4
+
+'''
+
+
+
+
+'''
+def ij(vari, varj, vals)
+
+vars = np.zeros((T,N))
+
+# derivative
+
+
+Ts = np.arange(T)*N
+I.append(Ts[:-1] + A)
+J.append(Ts[:-1] + THETA)
+np.ones(T)
+
+
+I.append(Ts[1:] + THETA)
+J.append(Ts[1:] + THETA)
+val.append(-np.ones(T))
+
+
+# eq of motion
+I.append(Ts[:-1] + A)
+J.append(Ts[:-1] + THETA)
+theta_avg = (vars[:-1,THETA] + vars[1:,THETA]) / 2
+np.sin(theta_avg)
+
+
+I.append(Ts[1:] + THETA)
+J.append(Ts[1:] + THETA)
+val.append(-np.ones(T))
+
+
+
+I = Ts + THETA
+J = Ts + THETA
+cost = np.ones()
+
+
+# actually we need to use the first time slice as a initial condition
+A = np.zeros((T,N-1,T,N))
+
+
+Ts = np.arange(T-1)+1
+
+A[Ts, X, Ts, XDOT] = .5
+A[Ts, X, Ts+1, XDOT] = .5
+
+A[Ts, THETA, Ts, THETADOT] = .5
+A[Ts, THETA, Ts+1, THETADOT] = .5
+
+#Control
+A[Ts, THETADOT, Ts, U] = .5 * np.cos(theta_avg) * m * L/2
+A[Ts, THETADOT, Ts+1, U] = .5 * np.cos(theta_avg) * m  * L/2
+
+#gravity
+A[Ts, THETADOT, Ts, THETA] = .5 * np.cos(theta_avg) * m * g * L/2
+A[Ts, THETADOT, Ts+1, THETA] = .5 * np.cos(theta_avg) * m * g * L/2
+
+# finite difference
+for i in range(4):
+	A[Ts, i, Ts, i] = 1 / dt
+	A[Ts, i, Ts+1, i] = -1 / dt
+	A[0,i,0,i] = 1 # initial condition block
+
+
+
+b = np.zeros((T-1,N-1))
+
+b[Ts,THETADOT] = np.cos(theta_avg) * m * g * L/2
+
+
+
+
+# Maybe unnecessary? Easy enough though
+A1 = cvx.sparse(A)
+b1 = cvx.sparse(b1)
+
+#G < h
+# on the diagonals we have range constraints
+# How many constraints are there? 6 per time step.
+G = np.zeros((T,6,T,N)) # One less than one greater than
+Ts = np.arange(T)
+G[Ts,0,Ts,0]= 1
+G[Ts,1,Ts,0]= 1
+G[Ts,2,Ts,1]= 1
+G[Ts,3,Ts,1]= 1
+G[Ts,4,Ts,4]= 1
+G[Ts,5,Ts,4]= 1
+
+h = np.zeros((T,6))
+UPPER = 0
+LOWER = 1
+
+h[:,0] = 0
+h[:,1] = 1
+
+#XDOT lower and upper
+h[:,2] = -1
+h[:,3] = 1
+
+# acceleration lower and upper
+h[:,4] = -20
+h[:,5] = 20
+
+
+
+for t in range(T):
+	I.append( (t, X) )
+	J.append( (t, X) )
+
+map(lambda t, n: t*N+n , I)
+
+
+#cost is diagonal 
+
+cost = np.zeros((T,N))
+cost[:,2] = 1.0 # Theta cost
+
+P = cvx.diagsparse(cost)
+q = 
+
+
+sol = cvx.qp(P,q, G, h, A, b)
+
+Grundle sparse
+A x + b == 0
+
+xs
+us 
+
+
+
+
+
+
+
+
